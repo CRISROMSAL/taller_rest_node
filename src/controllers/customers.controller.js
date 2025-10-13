@@ -1,5 +1,6 @@
 import * as service from "../services/customers.service.js";
 
+/*
 export async function getAllCustomers(req, res) {
   try {
     const customers = await service.listCustomers();
@@ -7,7 +8,31 @@ export async function getAllCustomers(req, res) {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+}*/
+
+
+/**
+ * Devuelve todos los clientes o filtra por nombre si se pasa el parámetro ?name=
+ *
+ * Ejemplos:
+ * GET /api/customers            → devuelve todos los clientes
+ * GET /api/customers?name=Laura → devuelve solo los que coincidan con "Laura"
+ */
+export async function getAllCustomers(req, res) {
+  try {
+    // Extrae el parámetro de consulta (puede no existir)
+    const { name } = req.query;
+
+    // Lo pasa al servicio; si name es undefined, el servicio listará todos
+    const customers = await service.listCustomers(name);
+
+    res.json(customers);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }
+
+
 
 export async function getCustomerById(req, res) {
   const id = parseInt(req.params.id);
