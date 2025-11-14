@@ -24,8 +24,8 @@ app.get("/health", async (req, res) => {
 });
 
 // Rutas API
-app.use("/api/products", productsRouter);
-app.use("/api/customers", customersRouter);
+app.use("/products", productsRouter);
+app.use("/customers", customersRouter);
 
 // Puerto
 const PORT = process.env.PORT || 3000;
